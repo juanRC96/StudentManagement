@@ -16,24 +16,29 @@ public class DataStudents {
 		ResultSet rs = null;
 		PreparedStatement ps = null;
 		
+		ArrayList<Student> students = new ArrayList<Student>();
 		
 		try {
 			con = DbConnector.getInstancia().getConexion();
-			ps = con.prepareStatement("SELECT id,surname,name FROM students"); //PreparedStatement ps = con.prepareStatement(consulta);
+			ps = con.prepareStatement("SELECT idStudent,surname,name,gender,date_of_birth,monthly_payment,subjectId FROM students"); //PreparedStatement ps = con.prepareStatement(consulta);
 			rs = ps.executeQuery();
 
 			while (rs.next()) { //RS.NEXT devuelve un tipo booleano, verdadero si hay mas datos
-				ArrayList<Student> students = new ArrayList<Student>();
-				Student s = new Student();
-				
-				//s.setIdTratamient(rs.getInt(1));
-				s.setIdPerson(rs.getInt(0));
 
+				Student s = new Student();
+				s.setIdPerson(rs.getInt(1));
+				s.setSurname(rs.getString(2));
+				s.setName(rs.getString(3));
+				s.setGender(rs.getString(4).charAt(0));
+				s.setDate_birth(rs.getDate(5).toLocalDate());
+				s.setMonthlyPayment(rs.getDouble(6));
+				s.setIdSubject(rs.getInt(7));
+				
 				students.add(s);
 			}
 
 		} catch (Exception e) {
-			System.err.println("Hubo un error");
+			System.err.println("Hubo un error en el data");
 			throw e;
 		}
 
@@ -52,7 +57,7 @@ public class DataStudents {
 			}
 		}
 		
-		return null;
+		return students;
 	}
 	
 }

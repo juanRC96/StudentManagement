@@ -15,37 +15,35 @@ import logic.LogicStudents;
 /**
  * Servlet implementation class SvShowStudents
  */
-@WebServlet("/SvShowStudents")
+@WebServlet("/svshowstudents")
 public class SvShowStudents extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public SvShowStudents() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		LogicStudents ls = new LogicStudents();
-		Student s = new Student();
-		ArrayList<Student> students = ls.showAllStudents();
-		
-		
+
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		LogicStudents ls = new LogicStudents();
+		
+		try 
+		{
+			ArrayList<Student> students = ls.showAllStudents();	
+			request.setAttribute("allstudents", students);
+			request.getRequestDispatcher("showStudents.jsp").forward(request, response);
+		}
+		catch (Exception e) 
+		{
+			response.sendRedirect("response.jsp?message=Error");
+		}
+		
 	}
 
 }

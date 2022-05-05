@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DbConnector {
 
-	private static String dburl = "jdbc:mysql://localhost:3306/";
+	private static String dburl = "jdbc:mysql://localhost:3306/university";
 	private static String dbdriver = "com.mysql.cj.jdbc.Driver";
 	private static String dbuser = "root";
 	private static String dbpass = "1234";
